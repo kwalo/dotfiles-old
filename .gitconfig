@@ -1,0 +1,30 @@
+[user]
+        name = Krzysztof Walo
+	email = kwalo@o2.pl
+
+[color]
+        diff = auto
+        status = auto
+        branch = auto
+
+[color.diff]
+        meta = bold blue
+        old = bold red
+        new = bold green
+        frag = bold cyan
+
+
+[color.status]
+        untracked = bold red
+        added = bold green
+        changed = bold yellow
+
+[giggle]
+	compact-mode = false
+	main-window-maximized = false
+	main-window-geometry = 1179x728+145+85
+[core]
+	autocrlf = input
+[alias]
+	st = status
+	ci = commit
