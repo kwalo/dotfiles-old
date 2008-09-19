@@ -73,6 +73,8 @@ alias lal='/bin/ls --color=auto -alh'
 alias lw='/bin/ls | wc -l'
 alias grep='/bin/grep --colour=auto'
 alias emacs='emacs -nw'
+alias git-cat='PAGER=/bin/cat git show'
+
 # Pass output of command to view
 function pg()
 {
