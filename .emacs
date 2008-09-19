@@ -166,7 +166,6 @@
 (setq auto-mode-alist (cons '("[sS][cC]on[sf].*" . python-mode)
                             auto-mode-alist))
 (setq auto-mode-alist (cons '("\.php"          . php-mode)   auto-mode-alist))
-(setq auto-mode-alist (cons '("\.phtml"          . nxhtml-mumamo)   auto-mode-alist))
 
 
 (require 'autoinsert)
