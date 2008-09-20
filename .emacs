@@ -98,16 +98,12 @@
 (setq load-path (cons "~/.emacs.d" load-path))
 (setq load-path (cons "~/.emacs.d/emacs-rails" load-path))
 (setq load-path (cons "~/.emacs.d/rhtml" load-path))
-(require 'nxml-mode)
 (require 'rhtml-mode)
 (require 'rails)
 
 
 ;; ECB setup
 (require 'ecb-autoloads)
-
-;; Load nXhtml for web editing
-(load "~/.emacs.d/nxhtml/autostart.el")
 
 (setq my-ecb-start t)
 
