@@ -109,15 +109,22 @@
 
 (add-hook 'ecb-activate-hook
           (lambda ()
-            (setq my-ecb-start nil)))
+            (setq my-ecb-start nil)
+            (global-set-key [?\C-c ?d] 'ecb-goto-window-directories)
+            (global-set-key [?\C-c ?e] 'ecb-goto-window-edit1)))
 
+(add-hook 'ecb-deactivate-hook
+          (lambda ()
+            (setq my-ecb-start t)
+            (global-unset-key [?\C-c ?d])
+            (global-unset-key [?\C-c ?e])))
 
 (defun my-toggle-ecb ()
   (interactive)
   (if my-ecb-start
       (ecb-activate)
-    (ecb-deactivate)
-    (setq my-ecb-start t)))
+    (ecb-deactivate)))
+
 
 ;; C-x e toggles ecb
 (global-set-key [?\C-x ?e] 'my-toggle-ecb)
