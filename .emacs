@@ -27,7 +27,7 @@
 
 ;; Typing characters ; or { reindents in new line
 (setq-default c-electric-flag 1)
-(setq-default c-auto-newline 1)
+
 ;; Basic indentation level
 (setq c-basic-offset 4)
 
