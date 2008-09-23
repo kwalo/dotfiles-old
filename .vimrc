@@ -64,7 +64,7 @@ set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 if has("gui_running")
     set guifont=Monospace\ 12
     set columns=122
-    set lines=40
+    set lines=43
 endif
 " set some nice colors
 colorscheme desert
