@@ -56,7 +56,7 @@ bindkey -e
 source ~/.zshprompt
 
 # Environment variables
-export EDITOR="emacs" PAGER="less" 
+export EDITOR="vim" PAGER="less" 
 WORDCHARS='.'
 
 # Some aliases
