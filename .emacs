@@ -40,6 +40,9 @@
   (define-key c-mode-base-map "\C-m" 'c-context-line-break))
 (add-hook 'c-initialization-hook 'my-make-CR-do-indent)
 
+;; Stuff modifying modeline
+(column-number-mode 1)
+(size-indication-mode 1)
 
 (whitespace-global-mode 1)
 
