@@ -104,6 +104,12 @@
 (require 'rhtml-mode)
 (require 'rails)
 
+;; Nxhtml for multi-mode php files
+(load "~/.emacs.d/nxhtml/autostart.el")
+;; Validating partials is not a good idea
+(add-hook 'nxhtml-mode-hook
+          (lambda ()
+            (rng-validate-mode)))
 
 ;; ECB setup
 (require 'ecb-autoloads)
@@ -163,15 +169,16 @@
 (autoload 'js2-mode "js2" nil t)
 
 ;; Default modes
-(setq auto-mode-alist (cons '("\.html$"          . nxml-mode)  auto-mode-alist))
-(setq auto-mode-alist (cons '("\.rhtml$"         . rhtml-mode) auto-mode-alist))
-(setq auto-mode-alist (cons '("\.erb$"           . rhtml-mode) auto-mode-alist))
-(setq auto-mode-alist (cons '("\.rpdf$"          . ruby-mode)  auto-mode-alist))
-(setq auto-mode-alist (cons '("\.js$"            . js2-mode)   auto-mode-alist))
+(setq auto-mode-alist (cons '("\.html$"       . nxhtml-mumamo) auto-mode-alist))
+(setq auto-mode-alist (cons '("\.phtml$"      . nxhtml-mumamo) auto-mode-alist))
+(setq auto-mode-alist (cons '("\.rhtml$"      . rhtml-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\.erb$"        . rhtml-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\.rpdf$"       . ruby-mode)  auto-mode-alist))
+(setq auto-mode-alist (cons '("\.js$"         . js2-mode)   auto-mode-alist))
+(setq auto-mode-alist (cons '("\.php"         . php-mode)   auto-mode-alist))
 ;; Enter python-mode, when visiting scons files
 (setq auto-mode-alist (cons '("[sS][cC]on[sf].*" . python-mode)
                             auto-mode-alist))
-(setq auto-mode-alist (cons '("\.php"          . php-mode)   auto-mode-alist))
 
 
 (require 'autoinsert)
@@ -187,7 +194,6 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(ecb-compilation-buffer-names (quote (("*Calculator*") ("*vc*") ("*vc-diff*") ("*Apropos*") ("*Occur*") ("*shell*") ("\\*[cC]ompilation.*\\*" . t) ("\\*i?grep.*\\*" . t) ("*JDEE Compile Server*") ("*Help*") ("*Completions*") ("*Backtrace*") ("*Compile-log*") ("*bsh*") ("*Messages*") ("*RWebServer*" . t) ("*ROutput*"))))
  '(ecb-layout-name "left14")
  '(ecb-options-version "2.32")
  '(ecb-primary-secondary-mouse-buttons (quote mouse-1--mouse-2))
