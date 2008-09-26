@@ -197,7 +197,7 @@
  '(ecb-layout-name "left14")
  '(ecb-options-version "2.32")
  '(ecb-primary-secondary-mouse-buttons (quote mouse-1--mouse-2))
- '(ecb-source-path (quote (("/home/kwalo/" "home") ("/home/kwalo/job/cs/caseload" "caseload") ("/home/kwalo/job/cs/swa.git/swa" "swa") ("/home/kwalo/job/cs/mediachannel.git" "mediachannel") ("/home/kwalo/job/cs/worky.git" "worky") ("/home/kwalo/job/cs/worky.bzr/worky-trunk" "worky.bzr"))))
+ '(ecb-source-path (quote (("/home/kwalo/" "home") ("/home/kwalo/job/cs/mediachannel.git" "mediachannel") ("/home/kwalo/job/cs/worky.git" "worky"))))
  '(ecb-tip-of-the-day nil)
  '(ecb-tree-expand-symbol-before t)
  '(ecb-tree-indent 3)
