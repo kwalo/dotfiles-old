@@ -191,6 +191,13 @@
 (define-auto-insert   "\.c"      "template.c")
 (define-auto-insert   "\.php"    "template.php")
 
+;; Keybindings
+(global-set-key [?\C-c ?\C-p] 'windmove-up)
+(global-set-key [?\C-c ?\C-n] 'windmove-down)
+(global-set-key [?\C-c ?\C-b] 'windmove-left)
+(global-set-key [?\C-c ?\C-f] 'windmove-right)
+
+
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
