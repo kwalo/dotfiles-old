@@ -192,10 +192,10 @@
 (define-auto-insert   "\.php"    "template.php")
 
 ;; Keybindings
-(global-set-key [?\C-c ?\C-p] 'windmove-up)
-(global-set-key [?\C-c ?\C-n] 'windmove-down)
-(global-set-key [?\C-c ?\C-b] 'windmove-left)
-(global-set-key [?\C-c ?\C-f] 'windmove-right)
+(global-set-key [?\C-c ?p] 'windmove-up)
+(global-set-key [?\C-c ?n] 'windmove-down)
+(global-set-key [?\C-c ?b] 'windmove-left)
+(global-set-key [?\C-c ?f] 'windmove-right)
 
 
 (custom-set-variables
