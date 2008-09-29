@@ -15,9 +15,6 @@
 (set-selection-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 
-;; Auto-fill mode breaks lines on whitespace at EOL
-(auto-fill-mode 1)
-
 ;; CC Mode specific stuff
 ;; Default mode
 (setq c-default-style '((java-mode . "java")
