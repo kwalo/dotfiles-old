@@ -43,7 +43,6 @@
 (column-number-mode 1)
 (size-indication-mode 1)
 
-(whitespace-global-mode 1)
 
 ;; Switch off blinking cursor
 (blink-cursor-mode -1)
