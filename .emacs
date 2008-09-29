@@ -159,13 +159,13 @@
             ))
 
 ;; Load mode for JavaScript
-;(autoload 'js2-mode "js2" nil t)
+(autoload 'js2-mode "js2" nil t)
 
 ;; Default modes
-;(setq auto-mode-alist (cons '("\.rhtml$"      . rhtml-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\.rhtml$"      . rhtml-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\.erb$"        . rhtml-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\.rpdf$"       . ruby-mode)  auto-mode-alist))
-;(setq auto-mode-alist (cons '("\.js$"         . js2-mode)   auto-mode-alist))
+(setq auto-mode-alist (cons '("\.js$"         . js2-mode)   auto-mode-alist))
 ;; Enter python-mode, when visiting scons files
 (setq auto-mode-alist (cons '("[sS][cC]on[sf].*" . python-mode)
                             auto-mode-alist))
@@ -192,6 +192,9 @@
           (lambda ()
             (rng-validate-mode)))
 
+;; I mix php and html only in phtml files
+(setq auto-mode-alist (cons '("\.php$"         . php-mode)   auto-mode-alist))
+
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
@@ -212,11 +215,6 @@
  '(nxhtml-skip-welcome t)
  '(rails-ws:default-server-type "mongrel")
  '(truncate-partial-width-windows nil)
- '(whitespace-check-indent-whitespace t)
- '(whitespace-check-leading-whitespace nil)
- '(whitespace-check-trailing-whitespace nil)
- '(whitespace-indent-regexp "^	*\\(                                                \\)+")
- '(whitespace-silent t)
  '(x-select-enable-clipboard t)
  '(yaml-indent-offset 4))
 (custom-set-faces
