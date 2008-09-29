@@ -18,7 +18,6 @@
 ;; Auto-fill mode breaks lines on whitespace at EOL
 (auto-fill-mode 1)
 
-
 ;; CC Mode specific stuff
 ;; Default mode
 (setq c-default-style '((java-mode . "java")
@@ -104,13 +103,6 @@
 (require 'rhtml-mode)
 (require 'rails)
 
-;; Nxhtml for multi-mode php files
-(load "~/.emacs.d/nxhtml/autostart.el")
-;; Validating partials is not a good idea
-(add-hook 'nxhtml-mode-hook
-          (lambda ()
-            (rng-validate-mode)))
-
 ;; ECB setup
 (require 'ecb-autoloads)
 
@@ -168,16 +160,13 @@
             ))
 
 ;; Load mode for JavaScript
-(autoload 'js2-mode "js2" nil t)
+;(autoload 'js2-mode "js2" nil t)
 
 ;; Default modes
-(setq auto-mode-alist (cons '("\.html$"       . nxhtml-mumamo) auto-mode-alist))
-(setq auto-mode-alist (cons '("\.phtml$"      . nxhtml-mumamo) auto-mode-alist))
-(setq auto-mode-alist (cons '("\.rhtml$"      . rhtml-mode) auto-mode-alist))
+;(setq auto-mode-alist (cons '("\.rhtml$"      . rhtml-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\.erb$"        . rhtml-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\.rpdf$"       . ruby-mode)  auto-mode-alist))
-(setq auto-mode-alist (cons '("\.js$"         . js2-mode)   auto-mode-alist))
-(setq auto-mode-alist (cons '("\.php"         . php-mode)   auto-mode-alist))
+;(setq auto-mode-alist (cons '("\.js$"         . js2-mode)   auto-mode-alist))
 ;; Enter python-mode, when visiting scons files
 (setq auto-mode-alist (cons '("[sS][cC]on[sf].*" . python-mode)
                             auto-mode-alist))
@@ -197,6 +186,12 @@
 (global-set-key [?\C-c ?b] 'windmove-left)
 (global-set-key [?\C-c ?f] 'windmove-right)
 
+;; Nxhtml for multi-mode php files
+(load "~/.emacs.d/nxhtml/autostart.el")
+;; Validating partials is not a good idea
+(add-hook 'nxhtml-mode-hook
+          (lambda ()
+            (rng-validate-mode)))
 
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
@@ -212,6 +207,7 @@
  '(ecb-tree-indent 3)
  '(ecb-windows-width 33)
  '(indent-tabs-mode nil)
+ '(majmodpri-sort-after-load nil)
  '(mumamo-background-chunk-major (quote mumamo-background-chunk-major))
  '(nxhtml-default-encoding (quote utf-8))
  '(nxhtml-skip-welcome t)
