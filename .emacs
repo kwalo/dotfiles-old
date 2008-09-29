@@ -24,6 +24,9 @@
                         (awk-mode . "awk")
                         (other . "linux")))
 
+;; Reload buffer, when file on disk changes
+(global-auto-revert-mode 1)
+
 ;; Typing characters ; or { reindents in new line
 (setq-default c-electric-flag 1)
 
