@@ -1,0 +1,7 @@
+#!/bin/sh
+
+$CONKY='/usr/bin/conky'
+
+for num in 0 1 2 3; do
+    conky -d -c ~/.conky/conkyrc-${num}
+done
