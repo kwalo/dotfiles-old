@@ -9,7 +9,7 @@ xftalpha		0.8
 own_window		yes
 own_window_transparent	yes
 own_window_type		override
-own_window_hints	undecorated,below,sticky,skip_taskbar,skip_pager
+own_window_hints	undecorated,sticky,skip_taskbar,skip_pager
 #on_bottom		yes
 
 minumum_size            150 50
