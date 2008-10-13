@@ -62,7 +62,7 @@ set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 " set statusline=\ %F%m%r%h\ %w\ \ cwd:\ %r%{getcwd()}%h\ \ \ Line:\ %l/%L:%c
 
 if has("gui_running")
-    set guifont=Monospace\ 12
+    set guifont=DejaVu\ Sans\ Mono\ 12
     set columns=115
     set lines=40
 endif
