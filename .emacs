@@ -55,10 +55,11 @@
    (set-cursor-color     "grey77")
    (set-background-color "grey10")
    (set-default-font "-*-fixed-medium-r-*-*-15-140-*-*-c-*-iso8859-2"))
+
 )
 
 ;; Manage the geometric size of initial window.
-(setq initial-frame-alist '((width . 113) (height . 54)))
+(setq initial-frame-alist '((width . 155) (height . 50)))
 
 ;; Syntax Highlight
 (global-font-lock-mode 1)
@@ -66,6 +67,8 @@
 ;; Always end a file with a newline
 (setq require-final-newline t)
 
+;; Don't truncate lines
+(setq default-truncate-lines 1)
 
 ;; Some helper functions to keep whitespace in buffer
 (defun remove-element-helper (tolist list element)
