@@ -2,8 +2,8 @@ background		no
 update_interval		1.0
 double_buffer		yes
 
-use_xft			no
-xftfont			Monospace:size=10
+use_xft			yes
+xftfont			Sans:size=9
 xftalpha		0.8
 
 own_window		yes
@@ -12,7 +12,6 @@ own_window_type		override
 own_window_hints	undecorated,below,skip_taskbar,skip_pager
 #on_bottom		yes
 
-minimum_size		150 50
 draw_shades		no
 draw_outline		yes
 draw_borders		yes
@@ -25,17 +24,19 @@ default_color		white
 default_shade_color	black
 default_outline_color	black
 
-alignment		bottom_left
-gap_x			343
-#gap_y			34
-gap_y			10
+alignment		top_left
+gap_x			15
+gap_y			4
+minimum_size		700 12
 
 no_buffers		yes
+draw_graph_borders      1
+color0                  FFFFFF
+color1                  F09000
+color2                  707070
+#${color #F09000}CPU2${color #707070}:${color white} ${cpubar cpu2}
+#${color #F09000}RAM${color #707070} :${color white} ${membar}
+#${color #F09000}SWAP${color #707070}:${color white} ${swapbar}
 
 TEXT
-${alignc}System
-${color #707070}${hr}${color white}
-${color #F09000}CPU1${color #707070}:${color white} ${cpubar cpu1}
-${color #F09000}CPU2${color #707070}:${color white} ${cpubar cpu2}
-${color #F09000}RAM${color #707070} :${color white} ${membar}
-${color #F09000}SWAP${color #707070}:${color white} ${swapbar}
+${color1}L${color2}: ${color0}${loadavg}  ${color1}CPU1${color2}: ${color0}${cpugraph cpu1 14,50}  ${color1}CPU2${color2}: ${color0}${cpugraph cpu2 14,50}  ${color1}M${color2}: ${color0}${mem} / ${memmax}  ${color1}S${color1}: ${color0}${swap} / ${swapmax}  ${color1}P${color2}: ${color0}${running_processes} / ${processes}  ${color1}IO${color2}: ${color0}${diskio sda}

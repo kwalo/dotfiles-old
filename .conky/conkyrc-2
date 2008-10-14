@@ -1,5 +1,5 @@
 background		no
-update_interval		3.0
+update_interval		5.0
 double_buffer		yes
 
 use_xft			no
@@ -25,9 +25,9 @@ default_color		white
 default_shade_color	black
 default_outline_color	black
 
-alignment		bottom_left
-gap_x			803
-gap_y			10
+alignment		bottom_middle
+gap_x			235
+gap_y			12
 
 no_buffers		yes
 

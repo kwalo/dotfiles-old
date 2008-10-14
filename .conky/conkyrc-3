@@ -25,10 +25,9 @@ default_color		white
 default_shade_color	black
 default_outline_color	black
 
-alignment		bottom_left
-gap_x			945
-#gap_y			34
-gap_y			10
+alignment		bottom_middle
+gap_x			-223
+gap_y			12
 
 no_buffers		yes
 
