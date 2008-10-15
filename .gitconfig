@@ -26,3 +26,5 @@
 [alias]
 	st = status
 	ci = commit
+        update = svn rebase
+        dcommit = svn dcommit
