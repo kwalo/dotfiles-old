@@ -39,4 +39,4 @@ color2                  707070
 #${color #F09000}SWAP${color #707070}:${color white} ${swapbar}
 
 TEXT
-${color1}L${color2}: ${color0}${loadavg}  ${color1}CPU1${color2}: ${color0}${cpugraph cpu1 14,50}  ${color1}CPU2${color2}: ${color0}${cpugraph cpu2 14,50}  ${color1}M${color2}: ${color0}${mem} / ${memmax}  ${color1}S${color2}: ${color0}${swap} / ${swapmax}  ${color1}P${color2}: ${color0}${running_processes} / ${processes}  ${color1}IO${color2}: ${color0}${diskio sda}
+${color1}Loadavg${color2}: ${color0}${loadavg}  ${color1}CPU1${color2}: ${color0}${cpugraph cpu1 14,50}  ${color1}CPU2${color2}: ${color0}${cpugraph cpu2 14,50}  ${color1}MEM${color2}: ${color0}${mem} / ${memmax}  ${color1}SWP${color2}: ${color0}${swap} / ${swapmax}  ${color1}Procs${color2}: ${color0}${running_processes} / ${processes}  ${color1}Disk IO${color2}: ${color0}${diskio sda}
