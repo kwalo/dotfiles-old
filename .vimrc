@@ -114,6 +114,9 @@ set wildmenu
 set wildmode=longest,full
 set completeopt=longest,menu
 
+" Change color of omnicomplete menu
+highlight Pmenu guibg=Grey40
+
 " --> [mappings]
 "
 " prompt for spelllanguage and turn spellchecker on
@@ -179,7 +182,38 @@ function! s:DiffWithSaved()
 endfunction
 com! Diff call s:DiffWithSaved()
 
-" I don't like this any more, but don't want to remove
+
+" Delete the current buffer, issuing bnext in all windows
+" where displayed before that
+function DeleteBuffer2()
+  let bid = bufnr("%")
+  let wid = winnr()
+  windo if bid == bufnr("%") | bprev | endif
+  exe "bdel " . bid
+  exe "normal " . wid . "^W^W"
+endfunction
+
+" count the number of buffers
+function BufferCount()
+  " save cur buf number
+  let cbuf = bufnr("%")
+  let bnum = 0
+  bufdo let bnum = bnum + 1
+  " return to the buf
+  exe "b " . cbuf
+  return bnum
+endfunction
+
+function DeleteBuffer()
+  if BufferCount() > 1
+    call DeleteBuffer2()
+  else
+    exe "bdel"
+  endif
+endfunction
+
+map <leader>k :call DeleteBuffer()<CR>
+
 "
 " function! CleverTab()
 "     if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
