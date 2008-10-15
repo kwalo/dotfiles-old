@@ -75,6 +75,7 @@ alias grep='/bin/grep --colour=auto'
 alias emacs='emacs -nw'
 alias git-cat='PAGER=/bin/cat git show'
 alias pu='phpunit'
+alias o='gnome-open'
 
 # Pass output of command to view
 function pg()
