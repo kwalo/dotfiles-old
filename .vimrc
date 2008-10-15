@@ -34,6 +34,10 @@ nmap <leader>f :find<cr>
 " Switch to prevoius buffer
 nmap <leader>b :b#<cr>
 
+" Copy/Paste from clipboard
+map <leader>y "+y
+map <leader>p "+gP
+
 " set rational tabs & co.
 set expandtab
 set softtabstop=4
