@@ -9,7 +9,7 @@ own_window_transparent	yes
 own_window_type		override
 own_window_hints	undecorated,sticky,skip_taskbar,skip_pager
 
-minimum_size		300 42
+minimum_size		150 42
 draw_shades		no
 draw_outline		yes
 draw_borders		yes
@@ -22,8 +22,7 @@ default_color		white
 default_shade_color	black
 default_outline_color	black
 
-alignment		bottom_middle
-gap_y			-1
+alignment		middle_right
 
 no_buffers		yes
 draw_graph_borders      1
@@ -33,8 +32,34 @@ color1                  F09000
 color2                  707070
 
 TEXT
-${alignc}Networking${color #707070}
+${color0}  Top CPU
+${color2}${hr}
+${offset 12}${color1}${top name 1}${color2}${alignr}${top cpu 1}
+${offset 12}${color0}${top name 2}${color2}${alignr}${top cpu 2}
+${offset 12}${color0}${top name 3}${color2}${alignr}${top cpu 3}
+${offset 12}${color0}${top name 4}${color2}${alignr}${top cpu 4}
+
+
+${color0}  Top MEM
+${color2}${hr}
+${offset 12}${color1}${top_mem name 1}${color2}${alignr}${top_mem mem 1}
+${offset 12}${color0}${top_mem name 2}${color2}${alignr}${top_mem mem 2}
+${offset 12}${color0}${top_mem name 3}${color2}${alignr}${top_mem mem 3}
+${offset 12}${color0}${top_mem name 4}${color2}${alignr}${top_mem mem 4}
+
+
+${color0}  Networking${color2}
 ${hr}
-${color1}wlan0 up${color2}:${color0} ${upspeed wlan0} k/s ${alignr}${color1}wlan0 down${color2}:${color0} ${downspeed wlan0} k/s
-${upspeedgraph wlan0 25,145} ${downspeedgraph wlan0 25,145}
+${color1}wlan0 up${color2}:${color0} ${upspeed wlan0} k/s
+${upspeedgraph wlan0 25,145}
+${color1}wlan0 down${color2}:${color0} ${downspeed wlan0} k/s
+${downspeedgraph wlan0 25,145}
+
+
+${color0}  Disk IO${color2}
+${hr}
+${color1}IO read${color2}:${color0} ${diskio_read sda}
+${diskiograph_read sda 25,145}
+${color1}IO write${color2}:${color0} ${diskio_write sda}
+${diskiograph_write sda 25,145}
 

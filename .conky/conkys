@@ -2,6 +2,6 @@
 
 CONKY='/usr/bin/conky'
 sleep 15
-for num in 0 1 2 3; do
+for num in 0 1; do
     $CONKY -d -c ~/.conky/conkyrc-${num}
 done
