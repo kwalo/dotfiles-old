@@ -74,7 +74,7 @@ if has("gui_running")
     set lines=40
 endif
 " set some nice colors
-colorscheme desert
+colorscheme koehler
 set background=dark
 hi statusline ctermfg=grey
 
