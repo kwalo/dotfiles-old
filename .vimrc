@@ -72,10 +72,10 @@ if has("gui_running")
     set guifont=DejaVu\ Sans\ Mono\ 12
     set columns=115
     set lines=40
+    colorscheme desert
+else
+    colorscheme slate
 endif
-" set some nice colors
-colorscheme koehler
-set background=dark
 hi statusline ctermfg=grey
 
 " --> [others]
