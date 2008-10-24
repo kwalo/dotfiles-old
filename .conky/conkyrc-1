@@ -32,6 +32,12 @@ color1                  F09000
 color2                  707070
 
 TEXT
+${color0}  kwalo@${nodename}
+${color2}${hr}
+${offset 12}${color1}Uptime${color2}:${alignr}${color0}${uptime}
+${offset 12}${color1}Battery${color2}:${alignr 17}${color0}${battery_percent}%
+
+
 ${color0}  Top CPU
 ${color2}${hr}
 ${offset 12}${color1}${top name 1}${color2}${alignr}${top cpu 1}
