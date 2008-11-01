@@ -74,7 +74,7 @@ if has("gui_running")
     set lines=48
     colorscheme desert
 else
-    colorscheme slate
+    colorscheme peachpuff
 endif
 hi statusline ctermfg=grey
 
@@ -85,7 +85,7 @@ set showcmd
 
 " do incremental searching
 set incsearch
-set ignorecase
+set noignorecase
 set hlsearch
 
 " don't use Ex mode, use Q for formatting
@@ -221,11 +221,10 @@ endfunction
 
 map <leader>k :call DeleteBuffer()<CR>
 
-"
-" function! CleverTab()
-"     if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
-"         return "\<Tab>"
-"     else
-"         return "\<C-N>"
-" endfunction
-" inoremap <Tab> <C-R>=CleverTab()<CR>
+" Abbreviations
+:ab ret return
+
+" Autocommands
+if has("autocmd")
+    :autocmd FileType python set complete+=k/home/kwalo/.vim/pydiction iskeyword+=.,(
+endif
