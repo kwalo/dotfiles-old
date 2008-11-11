@@ -35,7 +35,9 @@ TEXT
 ${color0}  kwalo@${nodename}
 ${color2}${hr}
 ${offset 12}${color1}Uptime${color2}:${alignr}${color0}${uptime}
-${offset 12}${color1}Battery${color2}:${alignr 17}${color0}${battery_percent}%
+${offset 12}${color1}Battery${color2}:${alignr}${color0}${battery_percent}%
+${offset 12}${color1}CPU${color2}:${alignr}${color0}${cpu}%
+${offset 12}${color1}MEM${color2}:${alignr}${color0}${memperc}%
 
 
 ${color0}  Top CPU
