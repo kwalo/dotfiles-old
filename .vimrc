@@ -74,7 +74,7 @@ if has("gui_running")
     set lines=48
     colorscheme desert
 else
-    colorscheme peachpuff
+    colorscheme ron
 endif
 hi statusline ctermfg=grey
 
