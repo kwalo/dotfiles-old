@@ -31,15 +31,9 @@ zsh-mime-setup
 # End of lines added by compinstall
 # Lines configured by zsh-newuser-install
 
-if [ x${USER} = xkwalo ]; then
-    HISTFILE="~/.histfile"
-    HISTSIZE=500
-    SAVEHIST=500
-else
-    HISTFILE=/dev/null
-    HISTSIZE=200
-    SAVEHIST=0
-fi
+HISTFILE="~/.histfile"
+HISTSIZE=500
+SAVEHIST=500
 
 setopt autocd \
     extendedglob \
