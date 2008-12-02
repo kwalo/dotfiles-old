@@ -68,13 +68,12 @@ set laststatus=2
 set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 " set statusline=\ %F%m%r%h\ %w\ \ cwd:\ %r%{getcwd()}%h\ \ \ Line:\ %l/%L:%c
 
+colorscheme desert
+
 if has("gui_running")
     set guifont=DejaVu\ Sans\ Mono\ 10
     set columns=174
     set lines=48
-    colorscheme desert
-else
-    colorscheme ron
 endif
 hi statusline ctermfg=grey
 
