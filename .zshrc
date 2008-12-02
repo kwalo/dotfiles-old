@@ -31,7 +31,7 @@ zsh-mime-setup
 # End of lines added by compinstall
 # Lines configured by zsh-newuser-install
 
-HISTFILE="~/.histfile"
+HISTFILE="${HOME}/.histfile"
 HISTSIZE=500
 SAVEHIST=500
 
