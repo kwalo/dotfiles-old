@@ -1,7 +1,7 @@
 " Vim color file
 " Maintainer:   Jani Nurminen <slinky@iki.fi>
 " Last Change:  $Id: zenburn.vim,v 2.3 2008/07/30 17:34:37 slinky Exp $
-" URL:      	http://slinky.imukuppi.org/zenburnpage/
+" URL:          http://slinky.imukuppi.org/zenburnpage/
 " License:      GPL
 "
 " Nothing too fancy, just some alien fruit salad to keep you in the zone.

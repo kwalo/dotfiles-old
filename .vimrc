@@ -6,6 +6,9 @@ set nocompatible
 " keep x lines of command line history
 set history=150
 
+" Better look in console
+set t_Co=256
+
 " enable filetype plugins
 filetype plugin on
 filetype indent on
@@ -68,7 +71,8 @@ set laststatus=2
 set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 " set statusline=\ %F%m%r%h\ %w\ \ cwd:\ %r%{getcwd()}%h\ \ \ Line:\ %l/%L:%c
 
-colorscheme desert
+
+colorscheme wombat
 
 if has("gui_running")
     set guifont=DejaVu\ Sans\ Mono\ 10
