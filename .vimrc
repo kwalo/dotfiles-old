@@ -168,7 +168,7 @@ au FileType text setlocal textwidth=78
 " load python extended functions
 "au FileType python source ~/.vim/scripts/python.vim
 
-au FileType python compiler pyunit
+au FileType python compiler nose
 au FileType python set makeprg=nosetests
 
 
