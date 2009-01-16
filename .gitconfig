@@ -28,3 +28,4 @@
 	ci = commit
         update = svn rebase
         dcommit = svn dcommit
+        co = checkout
