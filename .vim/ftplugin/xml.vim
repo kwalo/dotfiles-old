@@ -2,8 +2,8 @@
 " FileType:     XML
 " Author:       Devin Weaver <vim (at) tritarget.com> 
 " Maintainer:   Devin Weaver <vim (at) tritarget.com>
-" Last Change:  $Date: 2008-10-13 04:19:02 -0400 (Mon, 13 Oct 2008) $
-" Version:      $Revision: 71 $
+" Last Change:  $Date: 2008-10-16 10:01:12 -0400 (Thu, 16 Oct 2008) $
+" Version:      $Revision: 78 $
 " Location:     http://www.vim.org/scripts/script.php?script_id=301
 " Licence:      This program is free software; you can redistribute it
 "               and/or modify it under the terms of the GNU General Public
@@ -47,7 +47,6 @@
 if exists("b:did_ftplugin")
   finish
 endif
-let b:did_ftplugin = 1
 " sboles, init these variables so vim doesn't complain on wrap cancel
 let b:last_wrap_tag_used = ""
 let b:last_wrap_atts_used = ""
@@ -211,14 +210,7 @@ function s:ParseTag( )
                 let com_save = &comments
                 set comments-=n:>
                 execute "normal! a\<Cr>\<Cr>\<Esc>kAx\<Esc>>>$\"xx"
-                execute "set comments=" . com_save
-
-                " restore registers
-                let @" = old_reg_save
-                let @x = old_save_x
-
-                startinsert!
-                return ""
+                execute "set comments=" . substitute(com_save, " ", "\\\\ ", "g")
             else
                 if has_attrib == 0
                     call <SID>Callback (tag_name, html_mode)
@@ -239,11 +231,11 @@ function s:ParseTag( )
     let @" = old_reg_save
     let @x = old_save_x
 
-    if col (".") < strlen (getline ("."))
+    if multi_line
+        startinsert!
+    else
         execute "normal! l"
         startinsert
-    else
-        startinsert!
     endif
 endfunction
 endif
@@ -480,6 +472,10 @@ endif
 " Else continue editing
 if !exists("*s:InsertGt")
 function s:InsertGt( )
+  let save_matchpairs = &matchpairs
+  set matchpairs-=<:>
+  execute "normal! a>"
+  execute "set matchpairs=" . save_matchpairs
   " When the current char is text within a tag it will not proccess as a
   " syntax'ed element and return nothing below. Since the multi line wrap
   " feture relies on using the '>' char as text within a tag we must use the
@@ -487,7 +483,7 @@ function s:InsertGt( )
   if (getline('.')[col('.') - 1] == '>')
     let char_syn=synIDattr(synID(line("."), col(".") - 1, 1), "name")
   endif
-  if 0 == match(char_syn, 'html') || 0 == match(char_syn, 'xml')
+  if -1 == match(char_syn, "xmlProcessing") && (0 == match(char_syn, 'html') || 0 == match(char_syn, 'xml'))
     call <SID>ParseTag()
   else
     if col(".") == col("$") - 1
@@ -656,7 +652,7 @@ endfunction
 " }}}2
 
 let s:revision=
-      \ substitute("$Revision: 71 $",'\$\S*: \([.0-9]\+\) \$','\1','')
+      \ substitute("$Revision: 78 $",'\$\S*: \([.0-9]\+\) \$','\1','')
 silent! let s:install_status =
     \ s:XmlInstallDocumentation(expand('<sfile>:p'), s:revision)
 if (s:install_status == 1)
@@ -690,9 +686,9 @@ nnoremap <buffer> <LocalLeader>d :call <SID>DeleteTag()<Cr>
 " Parse the tag after pressing the close '>'.
 if !exists("g:xml_tag_completion_map")
     " inoremap <buffer> > ><Esc>:call <SID>ParseTag()<Cr>
-    inoremap <buffer> > ><Esc>:call <SID>InsertGt()<Cr>
+    inoremap <buffer> > <Esc>:call <SID>InsertGt()<Cr>
 else
-    execute "inoremap <buffer> " . g:xml_tag_completion_map . " ><Esc>:call <SID>ParseTag()<Cr>"
+    execute "inoremap <buffer> " . g:xml_tag_completion_map . " <Esc>:call <SID>InsertGt()<Cr>"
 endif
 
 if exists("g:xml_jump_string")
