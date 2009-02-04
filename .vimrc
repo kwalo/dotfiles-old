@@ -230,4 +230,6 @@ map <leader>k :call DeleteBuffer()<CR>
 " Autocommands
 if has("autocmd")
     :autocmd FileType python set complete+=k/home/kwalo/.vim/pydiction iskeyword+=.,(
+    :autocmd FileType html set textwidth=160
+    :autocmd FileType c    set tabstop=8
 endif
