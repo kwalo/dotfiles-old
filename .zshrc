@@ -58,6 +58,7 @@ alias ...=../..
 alias ....=../../..
 alias .....=../../../..
 alias srm='sudo rm'
+alias j="jobs"
 alias ls='/bin/ls --color=auto'
 alias l='/bin/ls --color=auto'
 alias ll='/bin/ls --color=auto -lh'
@@ -77,7 +78,6 @@ function pg()
     $@ | view -
 }
 [[ -x '/usr/bin/htop' ]] && alias top='/usr/bin/htop'
-#[[ -x '/usr/local/sbin/wifi.py' ]] && alias wifi='sudo /usr/local/sbin/wifi.py'
 [[ -x '/usr/local/bin/log' ]] && alias log=/usr/local/bin/log
 true
 
