@@ -163,13 +163,6 @@ let Tlist_Close_On_Select = 1
 " --> [autocommands]
 "
 " for all text files set 'textwidth' to 78 characters.
-au FileType text setlocal textwidth=78
-
-" load python extended functions
-"au FileType python source ~/.vim/scripts/python.vim
-
-au FileType python compiler nose
-au FileType python set makeprg=nosetests
 
 
 " when editing a file, always jump to the last known cursor position.
@@ -229,8 +222,11 @@ map <leader>k :call DeleteBuffer()<CR>
 
 " Autocommands
 if has("autocmd")
-    :autocmd FileType python set complete+=k/home/kwalo/.vim/pydiction iskeyword+=.,(
-    :autocmd FileType html set textwidth=160
-    :autocmd FileType phtml set textwidth=160
-    :autocmd FileType c    set tabstop=8
+    :autocmd FileType python   set makeprg=nosetests
+    :autocmd FileType python   set complete+=k/home/kwalo/.vim/pydiction iskeyword+=.,(
+    :autocmd FileType html     set textwidth=160
+    :autocmd FileType phtml    set textwidth=160
+    :autocmd FileType c        set tabstop=8
+    :autocmd FileType ruby     set tabstop=2
+    :autocmd FileType text     setlocal textwidth=78
 endif

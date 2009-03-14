@@ -1,7 +1,9 @@
 #!/bin/sh
 
+SLEEP=20
+test $1 && SLEEP=$1
 CONKY='/usr/bin/conky'
-sleep 20
+sleep $SLEEP
 for num in 0 1; do
     $CONKY -d -c ~/.conky/conkyrc-${num}
 done
