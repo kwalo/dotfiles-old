@@ -41,6 +41,7 @@ setopt autocd \
     notify \
     multios \
     hist_ignore_all_dups \
+    hist_ignore_space \
     NO_beep \
     always_to_end \
     auto_param_slash \
