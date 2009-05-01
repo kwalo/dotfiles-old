@@ -145,7 +145,10 @@ map <leader>h :noh<CR>
 map <leader>l <F4>
 
 " ctags shortcut
-map <leader>t :!ctags -R<CR>
+map <leader>c :!ctags -R<CR>
+
+" open tag list window
+map <leader>t :TlistToggle<CR>
 
 " use F1 for something useful
 map <F1> <esc>
