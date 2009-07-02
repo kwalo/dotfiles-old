@@ -1,4 +1,9 @@
 ## prompt
+# Hack for overriding $TERM variable
+if [[ $TERM == 'xterm' ]];then
+    export PR_WAS_XTERM=true
+fi
+
 precmd () {
   # Store name of current git branch in psvar array so we can display it on
   # prompt
@@ -14,7 +19,7 @@ precmd () {
   fi
   # Also set title for xterm, but rely on $DISPLAY, not on $TERM as screen
   # overrides it
-  if [[ -n $DISPLAY ]]; then
+  if [[ -n $PR_WAS_XTERM ]]; then
       print -Pn "\e]0;%n@%m: %~\a"
   fi
 
