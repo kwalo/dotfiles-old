@@ -1,0 +1,3 @@
+startup_message off
+activity "Activity in window %n"
+defutf8 on
