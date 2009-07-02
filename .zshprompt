@@ -8,12 +8,15 @@ precmd () {
   else
       psvar=($GITBRANCH)
   fi
-  # print dir name in term title
-  case $TERM in
-    xterm)
-    print -Pn "\e]0;%n@%m: %~\a"
-    ;;
-  esac
+  # More useful title for screen
+  if [[ $TERM == 'screen' ]]; then
+      print -nP "\ekzsh $USER: ${PWD/$HOME/~}\e\\"
+  fi
+  # Also set title for xterm, but rely on $DISPLAY, not on $TERM as screen
+  # overrides it
+  if [[ -n $DISPLAY ]]; then
+      print -Pn "\e]0;%n@%m: %~\a"
+  fi
 
   local TERMWIDTH
   local branchlen=${#${(%):-$GITBRANCH}}
