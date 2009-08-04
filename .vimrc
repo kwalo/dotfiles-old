@@ -121,8 +121,8 @@ set listchars=tab:>.,trail:.,eol:<
 
 " set nice completion menu
 set wildmenu
-set wildmode=list,longest
-set completeopt=menu
+set wildmode=longest,full
+set completeopt=longest,menu
 
 " Change color of omnicomplete menu
 highlight Pmenu guibg=Grey40
