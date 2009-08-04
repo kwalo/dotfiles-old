@@ -229,7 +229,7 @@ if has("autocmd")
     :autocmd FileType python   set complete+=k/home/kwalo/.vim/pydiction iskeyword+=.,(
     :autocmd FileType html     set textwidth=160
     :autocmd FileType phtml    set textwidth=160
-    :autocmd FileType c        set tabstop=8
+    :autocmd FileType c        set tabstop=8 shiftwidth=8 softtabstop=8
     :autocmd FileType ruby     set tabstop=2
     :autocmd FileType text     setlocal textwidth=78
 endif
