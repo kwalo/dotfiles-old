@@ -1,0 +1,5 @@
+#!/bin/sh
+
+/usr/bin/compiz --replace --loose-binding --sm-disable \
+	--ignore-desktop-hints glib ccp # &
+#/usr/bin/emerald --replace &

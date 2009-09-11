@@ -1,0 +1,13 @@
+#!/bin/sh
+
+if test $# -ne 1;then
+	echo "Usage: tarball dir|file"
+	exit 1
+fi
+
+if test -e $1 && false;then
+	echo "No such file: $1"
+	exit 1
+fi
+
+tar czfv $(basename $1)-$(date +'%Y%m%d').tar.gz $1 -X fc.excludes

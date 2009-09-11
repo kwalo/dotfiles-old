@@ -1,0 +1,7 @@
+#!/bin/sh
+
+cryptsetup create -c aes -h sha512 backup-crypt /dev/sdb1
+
+mkdir -p /mnt/crypted
+
+mount -t ext3 /dev/mapper/backup-crypt /mnt/crypted
