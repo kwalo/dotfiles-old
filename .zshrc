@@ -68,10 +68,8 @@ alias lla='/bin/ls --color=auto -lah'
 alias lal='/bin/ls --color=auto -alh'
 alias lw='/bin/ls | wc -l'
 alias grep='/bin/grep --colour=auto'
-alias emacs='emacs -nw'
-alias git-cat='PAGER=/bin/cat git show'
-alias pu='phpunit'
 alias o='gnome-open'
+alias jrb=PATH="/opt/jruby/bin:$PATH"
 
 # Pass output of command to view
 function pg()
@@ -82,3 +80,10 @@ function pg()
 [[ -x '/usr/local/bin/log' ]] && alias log=/usr/local/bin/log
 true
 
+
+# rvm installer added line:
+if [ -s ~/.rvm/scripts/rvm ] ; then source ~/.rvm/scripts/rvm ; fi
+
+
+
+source /home/kwalo/.profile

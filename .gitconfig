@@ -21,8 +21,8 @@
 
 [giggle]
 	compact-mode = false
-	main-window-maximized = false
-	main-window-geometry = 1391x842+109+95
+	main-window-maximized = true
+	main-window-geometry = 0x0+0+0
 [alias]
 	st = status
 	ci = commit
