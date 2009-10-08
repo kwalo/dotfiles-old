@@ -8,11 +8,9 @@ precmd () {
   # Store name of current git branch in psvar array so we can display it on
   # prompt
   local GITBRANCH=$(/usr/bin/git branch --no-color 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
-  if [ -z $GITBRANCH ]; then
-      psvar=()
-  else
-      psvar=($GITBRANCH)
-  fi
+  # $rvm_package_file was not unset when changed to default interpreter
+  local RUBY_INTERPRETER=$(basename "$MY_RUBY_HOME")
+  psvar=("$GITBRANCH" "$RUBY_INTERPRETER")
   # More useful title for screen
   if [[ $TERM == 'screen' ]]; then
       print -nP "\ekzsh $USER: ${PWD/$HOME/~}\e\\"
@@ -52,8 +50,7 @@ setprompt () {
   typeset -A altchar
   set -A altchar ${(s..)termcap[ac]}
   PR_SET_CHARSET="%{$termcap[eA]%}"
-  PR_SHIFT_IN="%{$termcap[as]%}"
-  PR_SHIFT_OUT="%{$termcap[ae]%}"
+  PR_SHIFT_IN="%{$termcap[as]%}" PR_SHIFT_OUT="%{$termcap[ae]%}"
   PR_HBAR=${altchar[q]:--}
   PR_ULCORNER=${altchar[l]:--}
   PR_LLCORNER=${altchar[m]:--}
@@ -70,13 +67,15 @@ setprompt () {
 $BLUE$PR_SHIFT_IN$PR_ULCORNER$PR_HBAR$PR_SHIFT_OUT(\
 $DEF%n$BLUE@$MCOLOR%m$BLUE:$DEF%$PR_PWDLEN<...<%~%<<\
 $BLUE)$PR_SHIFT_IN$PR_HBAR\
-%1(v,$PR_SHIFT_OUT($LIGHT_GREEN$psvar[1]$BLUE)$PR_SHIFT_IN,)\
-$PR_HBAR$PR_SHIFT_OUT($DEF%D{%H:%M}\
+$PR_SHIFT_OUT($DEF%D{%H:%M}\
 $BLUE)$PR_SHIFT_OUT\
 
 $PR_SHIFT_IN$PR_LLCORNER$PR_HBAR$PR_SHIFT_OUT\
 ($DEF%!$BLUE,%1(j,$MAGENTA,$DEF)%j$BLUE,%(?,$DEF,$RED)%?$BLUE)\
-$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT$DEF%(!.#.$)$DEF '
+$PR_SHIFT_IN$PR_HBAR\
+%2(V,$PR_SHIFT_OUT($YELLOW$psvar[2]$BLUE)$PR_SHIFT_IN$PR_HBAR,)\
+%1(V,$PR_SHIFT_OUT($LIGHT_GREEN$psvar[1]$BLUE)$PR_SHIFT_IN$PR_HBAR,)\
+$PR_SHIFT_OUT$DEF%(!.#.$)$DEF '
 
 ## Fancy display of status code on right. Don't want to remove it yet
 #  RPROMPT=' $BLUE$PR_SHIFT_IN$PR_HBAR$PR_HBAR$PR_SHIFT_OUT\
