@@ -69,7 +69,7 @@ alias lal='/bin/ls --color=auto -alh'
 alias lw='/bin/ls | wc -l'
 alias grep='/bin/grep --colour=auto'
 alias o='gnome-open'
-alias jrb=PATH="/opt/jruby/bin:$PATH"
+alias gut=git
 
 # Pass output of command to view
 function pg()
