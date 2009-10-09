@@ -48,7 +48,10 @@ setopt autocd \
     rm_star_silent
 bindkey -e
 # End of lines configured by zsh-newuser-install
-source ~/.zshprompt
+test -f ~/.zsh/prompt && source ~/.zsh/prompt
+if [ -d ~/.zsh/functions ]; then
+    fpath=(~/.zsh/functions $fpath)
+fi
 
 # Environment variables
 export EDITOR="vim" PAGER="less" 
