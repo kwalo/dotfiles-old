@@ -26,8 +26,6 @@ zstyle ':mime:*' mailcap ~/.mailcap
 
 autoload -U compinit
 compinit
-autoload -U zsh-mime-setup
-zsh-mime-setup
 # End of lines added by compinstall
 # Lines configured by zsh-newuser-install
 
@@ -53,6 +51,8 @@ if [ -d ~/.zsh/functions ]; then
     fpath=(~/.zsh/functions $fpath)
 fi
 
+autoload -U venvinit; venvinit
+
 # Environment variables
 export EDITOR="vim" PAGER="less" 
 WORDCHARS='.'
@@ -74,19 +74,9 @@ alias grep='/bin/grep --colour=auto'
 alias o='gnome-open'
 alias gut=git
 
-# Pass output of command to view
-function pg()
-{
-    $@ | view -
-}
 [[ -x '/usr/bin/htop' ]] && alias top='/usr/bin/htop'
-[[ -x '/usr/local/bin/log' ]] && alias log=/usr/local/bin/log
-true
-
 
 # rvm installer added line:
 if [ -s ~/.rvm/scripts/rvm ] ; then source ~/.rvm/scripts/rvm ; fi
-
-
 
 source /home/kwalo/.profile

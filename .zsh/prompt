@@ -1,69 +1,73 @@
 ## prompt
+## vim: filetype=sh
 # Hack for overriding $TERM variable
 if [[ $TERM == 'xterm' ]];then
     export PR_WAS_XTERM=true
 fi
 
 precmd () {
-  # Store name of current git branch in psvar array so we can display it on
-  # prompt
-  local GITBRANCH=$(/usr/bin/git branch --no-color 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
-  # $rvm_package_file was not unset when changed to default interpreter
-  local RUBY_INTERPRETER=$(basename "$MY_RUBY_HOME")
-  psvar=("$GITBRANCH" "$RUBY_INTERPRETER")
-  # More useful title for screen
-  if [[ $TERM == 'screen' ]]; then
-      print -nP "\ekzsh $USER: ${PWD/$HOME/~}\e\\"
-  fi
-  # Also set title for xterm, but rely on $DISPLAY, not on $TERM as screen
-  # overrides it
-  if [[ -n $PR_WAS_XTERM ]]; then
-      print -Pn "\e]0;%n@%m: %~\a"
-  fi
+    # Store name of current git branch in psvar array so we can display it on
+    # prompt
+    local GITBRANCH=$(/usr/bin/git branch --no-color 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
+    # $rvm_package_file was not unset when changed to default interpreter
+    local RUBY_INTERPRETER=$(basename "$MY_RUBY_HOME")
+    # setup virtualenv name
+    local VENV_NAME
 
-  local TERMWIDTH
-  local branchlen=${#${(%):-$GITBRANCH}}
-  local promptlen=${#${(%):--(%n@%m:)-()-(HH:MM)}}
-  local pwdlen=${#${(%):-%~}}
+    psvar=("$GITBRANCH" "$RUBY_INTERPRETER" "$venv_name")
+    # More useful title for screen
+    if [[ $TERM == 'screen' ]]; then
+        print -nP "\ekzsh $USER: ${PWD/$HOME/~}\e\\"
+    fi
+    # Also set title for xterm, but rely on $DISPLAY, not on $TERM as screen
+    # overrides it
+    if [[ -n $PR_WAS_XTERM ]]; then
+        print -Pn "\e]0;%n@%m: %~\a"
+    fi
 
-  (( TERMWIDTH = $COLUMNS - 1 ))
-  if [[ "$branchlen + $promptlen + $pwdlen" -gt $TERMWIDTH ]]; then
-      (( PR_PWDLEN = $TERMWIDTH - $branchlen - $promptlen ))
-  else
-      PR_PWDLEN=''
-  fi
+    local TERMWIDTH
+    local branchlen=${#${(%):-$GITBRANCH}}
+    local promptlen=${#${(%):--(%n@%m:)-()-(HH:MM)}}
+    local pwdlen=${#${(%):-%~}}
+
+    (( TERMWIDTH = $COLUMNS - 1 ))
+    if [[ "$branchlen + $promptlen + $pwdlen" -gt $TERMWIDTH ]]; then
+        (( PR_PWDLEN = $TERMWIDTH - $branchlen - $promptlen ))
+    else
+        PR_PWDLEN=''
+    fi
 }
 
 setprompt () {
 
-  setopt prompt_subst
+    setopt prompt_subst
 
-  autoload colors
-  colors
-  for color in BLACK RED GREEN YELLOW BLUE MAGENTA CYAN WHITE; do
-    eval $color='%{$termcap[md]$fg[${(L)color}]%}'
-    eval LIGHT_$color='%{$termcap[me]$fg[${(L)color}]%}'
-    (( count = $count + 1 ))
-  done
-  DEF="%{$termcap[me]%}"
+    autoload colors
+    colors
+    for color in BLACK RED GREEN YELLOW BLUE MAGENTA CYAN WHITE; do
+        eval $color='%{$termcap[md]$fg[${(L)color}]%}'
+        eval LIGHT_$color='%{$termcap[me]$fg[${(L)color}]%}'
+        (( count = $count + 1 ))
+    done
+    DEF="%{$termcap[me]%}"
 
-  typeset -A altchar
-  set -A altchar ${(s..)termcap[ac]}
-  PR_SET_CHARSET="%{$termcap[eA]%}"
-  PR_SHIFT_IN="%{$termcap[as]%}" PR_SHIFT_OUT="%{$termcap[ae]%}"
-  PR_HBAR=${altchar[q]:--}
-  PR_ULCORNER=${altchar[l]:--}
-  PR_LLCORNER=${altchar[m]:--}
-  PR_LRCORNER=${altchar[j]:--}
-  PR_URCORNER=${altchar[k]:--}
-  test -z $HOST && HOST=$(hostname)
+    typeset -A altchar
+    set -A altchar ${(s..)termcap[ac]}
+    PR_SET_CHARSET="%{$termcap[eA]%}"
+    PR_SHIFT_IN="%{$termcap[as]%}" PR_SHIFT_OUT="%{$termcap[ae]%}"
+    PR_HBAR=${altchar[q]:--}
+    PR_ULCORNER=${altchar[l]:--}
+    PR_LLCORNER=${altchar[m]:--}
+    PR_LRCORNER=${altchar[j]:--}
+    PR_URCORNER=${altchar[k]:--}
+    test -z $HOST && HOST=$(hostname)
 
-  if [[ $HOST = mercury || $HOST = jupiter ]]; then MCOLOR=$DEF
-  elif [[ $HOST = runner ]]; then MCOLOR=$RED
-  else MCOLOR=$WHITE
-  fi
+    if [[ $HOST = mercury || $HOST = jupiter ]]; then MCOLOR=$DEF
+    elif [[ $HOST = runner ]]; then MCOLOR=$RED
+    else MCOLOR=$WHITE
+    fi
 
-  PROMPT='$PR_SET_CHARSET\
+    PROMPT='$PR_SET_CHARSET\
 $BLUE$PR_SHIFT_IN$PR_ULCORNER$PR_HBAR$PR_SHIFT_OUT(\
 $DEF%n$BLUE@$MCOLOR%m$BLUE:$DEF%$PR_PWDLEN<...<%~%<<\
 $BLUE)$PR_SHIFT_IN$PR_HBAR\
@@ -73,20 +77,21 @@ $BLUE)$PR_SHIFT_OUT\
 $PR_SHIFT_IN$PR_LLCORNER$PR_HBAR$PR_SHIFT_OUT\
 ($DEF%!$BLUE,%1(j,$MAGENTA,$DEF)%j$BLUE,%(?,$DEF,$RED)%?$BLUE)\
 $PR_SHIFT_IN$PR_HBAR\
+%3(V,$PR_SHIFT_OUT($YELLOW$psvar[3]$BLUE)$PR_SHIFT_IN$PR_HBAR,)\
 %2(V,$PR_SHIFT_OUT($YELLOW$psvar[2]$BLUE)$PR_SHIFT_IN$PR_HBAR,)\
 %1(V,$PR_SHIFT_OUT($LIGHT_GREEN$psvar[1]$BLUE)$PR_SHIFT_IN$PR_HBAR,)\
 $PR_SHIFT_OUT$DEF%(!.#.$)$DEF '
 
-## Fancy display of status code on right. Don't want to remove it yet
-#  RPROMPT=' $BLUE$PR_SHIFT_IN$PR_HBAR$PR_HBAR$PR_SHIFT_OUT\
-#($MCOLOR%(?,$GREEN\\o/,$RED\\o_ $WHITE%139(?,Seg fault,\
-#%130(?,Interrupt,%138(?,Bus Error,%?)))$RED _o/)\
-#$BLUE)$PR_SHIFT_IN$PR_HBAR$PR_LRCORNER$PR_SHIFT_OUT$DEF'
+    ## Fancy display of status code on right. Don't want to remove it yet
+    #  RPROMPT=' $BLUE$PR_SHIFT_IN$PR_HBAR$PR_HBAR$PR_SHIFT_OUT\
+    #($MCOLOR%(?,$GREEN\\o/,$RED\\o_ $WHITE%139(?,Seg fault,\
+    #%130(?,Interrupt,%138(?,Bus Error,%?)))$RED _o/)\
+    #$BLUE)$PR_SHIFT_IN$PR_HBAR$PR_LRCORNER$PR_SHIFT_OUT$DEF'
 
-  SPROMPT='zsh: correct $MCOLOR%R$DEF to $MCOLOR%r$DEF%b ? ([${MCOLOR}Y$DEF]es/\
+    SPROMPT='zsh: correct $MCOLOR%R$DEF to $MCOLOR%r$DEF%b ? ([${MCOLOR}Y$DEF]es/\
 [${MCOLOR}N$DEF]o/[${MCOLOR}E$DEF]dit/[${MCOLOR}A$DEF]bort) '
 
-  PS2='$BLACK$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT\
+    PS2='$BLACK$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT\
 $BLUE$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT(\
 $MCOLOR%_$BLUE)$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT\
 $BLACK$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT$DEF '
