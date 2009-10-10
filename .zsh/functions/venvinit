@@ -1,0 +1,52 @@
+##
+## Shell functions for managing python virtual environments
+## by Krzysztof Walo <kwalo@o2.pl>
+##
+## vim: filetype=sh
+##
+
+venvinit () {
+    venv_loaded=1
+    venv_preserve_ps1=1
+}
+
+venv () {
+    local action virtualenv
+    action=$1
+    virtualenv=$2
+    case $action in
+        activate)
+        if [[ -d "$virtualenv" ]]; then
+            venv_activate $virtualenv
+        else
+            return 1
+        fi
+        ;;
+        deactivate)
+        venv_deactivate
+        ;;
+    esac
+}
+
+##
+## Function to activate virtualenv
+##
+venv_activate () {
+    virtualenv=$1
+    [[ -z "$virtualenv" ]] && virtualenv='.'
+    local OLD_PS1=$PS1
+    source $virtualenv/bin/activate
+    if [[ $venv_preserve_ps1 -eq 1 ]]; then
+        PS1=$OLD_PS1
+    fi
+    if [[ -n $VIRTUAL_ENV ]]; then
+        venv_name=$(basename $VIRTUAL_ENV)
+    fi
+}
+
+venv_deactivate () {
+    deactivate
+    unset venv_name
+}
+
+venvinit "$@"
