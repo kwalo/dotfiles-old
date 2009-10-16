@@ -22,8 +22,6 @@ set autoread
 " autowrite buffer before executing most commands
 set autowrite
 
-" have the mouse enabled all the time:
-set mouse=a
 
 " set mapleader
 let mapleader = ","
@@ -78,6 +76,10 @@ if has("gui_running")
     set guifont=DejaVu\ Sans\ Mono\ 10
     set columns=174
     set lines=48
+    " have the mouse enabled all the time:
+    set mouse=a
+else
+    set mouse=
 endif
 hi statusline ctermfg=grey
 
