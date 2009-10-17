@@ -6,6 +6,9 @@
 ##
 
 venvinit () {
+    if [[ -z "$VENV_HOME" ]]; then
+        VENV_HOME=~/.venv
+    fi
     venv_loaded=1
     venv_preserve_ps1=1
 }
@@ -15,25 +18,51 @@ venv () {
     action=$1
     virtualenv=$2
     case $action in
+        create)
+        venv_create $virtualenv
+        ;;
+        remove)
+        venv_remove $virtualenv
+        ;;
         activate)
-        if [[ -d "$virtualenv" ]]; then
-            venv_activate $virtualenv
-        else
-            return 1
-        fi
+        venv_activate $virtualenv
         ;;
         deactivate)
         venv_deactivate
         ;;
+        list)
+        ls $VENV_HOME
+        ;;
     esac
+}
+
+venv_set_path () {
+    virtualenv=$1
+    [[ -z "$virtualenv" ]] && virtualenv='.'
+    if [[ ! -d "$virtualenv" ]]; then
+        virtualenv=${VENV_HOME}/$virtualenv
+    fi
+    if [[ ! -d "$virtualenv" ]]; then
+        return 1
+    fi
+    return 0
+}
+
+venv_create () {
+    venv_set_path $1 && echo "Virtualenv already exists!" && return 1
+    virtualenv $virtualenv
+}
+
+venv_remove() {
+    venv_set_path $1
+    rm -fr $virtualenv
 }
 
 ##
 ## Function to activate virtualenv
 ##
 venv_activate () {
-    virtualenv=$1
-    [[ -z "$virtualenv" ]] && virtualenv='.'
+    venv_set_path $1 || return 1
     local OLD_PS1=$PS1
     source $virtualenv/bin/activate
     if [[ $venv_preserve_ps1 -eq 1 ]]; then
