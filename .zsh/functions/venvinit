@@ -33,6 +33,12 @@ venv () {
         list)
         ls $VENV_HOME
         ;;
+        cd)
+        venv_cd $virtualenv
+        ;;
+        *)
+        venv_activate $action
+        ;;
     esac
 }
 
@@ -76,6 +82,19 @@ venv_activate () {
 venv_deactivate () {
     deactivate
     unset venv_name
+}
+
+venv_cd() {
+    virtualenv=$1
+    if [[ -n "$virtualenv" ]]; then
+        venv_set_path $1 || return 1
+    elif [[ -n "$VIRTUAL_ENV" ]]; then
+        virtualenv=$VIRTUAL_ENV
+    else
+        echo "Virtual env is not specified and none is active"
+        return 1
+    fi
+    cd $virtualenv
 }
 
 venvinit "$@"
