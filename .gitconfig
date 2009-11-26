@@ -23,9 +23,14 @@
 	compact-mode = false
 	main-window-maximized = true
 	main-window-geometry = 0x0+0+0
+	history-view-vpane-position = 544
+	main-window-view = FileView
+	file-view-vpane-position = 224
 [alias]
 	st = status
 	ci = commit
         update = svn rebase
         dcommit = svn dcommit
         co = checkout
+[push]
+	default = current

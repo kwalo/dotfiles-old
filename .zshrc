@@ -73,6 +73,7 @@ alias lw='/bin/ls | wc -l'
 alias grep='/bin/grep --colour=auto'
 alias o='gnome-open'
 alias gut=git
+alias j512='java -Xmx512m -Xms512m'
 
 [[ -x '/usr/bin/htop' ]] && alias top='/usr/bin/htop'
 
