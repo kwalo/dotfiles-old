@@ -36,6 +36,9 @@ venv () {
         cd)
         venv_cd $virtualenv
         ;;
+        sp|site-packages)
+        venv_site_packages $virtualenv
+        ;;
         *)
         venv_activate $action
         ;;
@@ -95,6 +98,20 @@ venv_cd() {
         return 1
     fi
     cd $virtualenv
+}
+
+venv_site_packages() {
+    virtualenv=$1
+    if [[ -n "$virtualenv" ]]; then
+        venv_set_path $1 || return 1
+    elif [[ -n "$VIRTUAL_ENV" ]]; then
+        virtualenv=$VIRTUAL_ENV
+    else
+        echo "Virtual env is not specified and none is active"
+        return 1
+    fi
+    local major_version=$(python -V 2>&1 | sed -e 's/^[^0-9]*//' -e 's/\.[0-9]$//')
+    cd $virtualenv/lib/python$major_version/site-packages
 }
 
 venvinit "$@"
