@@ -9,29 +9,37 @@ venvinit () {
     if [[ -z "$VENV_HOME" ]]; then
         VENV_HOME=~/.venv
     fi
+    if [[ -z "venv_preserve_ps1" ]]; then
+        venv_preserve_ps1=1
+    fi
     venv_loaded=1
-    venv_preserve_ps1=1
 }
 
 venv () {
     local action virtualenv
     action=$1
-    virtualenv=$2
+    if [[ -n $action ]]; then
+        shift 1
+    fi
+    virtualenv=$1
+    if [[ -n $virtualenv ]]; then
+        shift 1
+    fi
     case $action in
         create)
-        venv_create $virtualenv
+        venv_create $virtualenv $@
         ;;
         remove)
         venv_remove $virtualenv
         ;;
         activate)
-        venv_activate $virtualenv
+        venv_activate $virtualenv || venv_error "No such virtualenv!"
         ;;
         deactivate)
         venv_deactivate
         ;;
         list)
-        ls $VENV_HOME
+        ls -1 $VENV_HOME
         ;;
         cd)
         venv_cd $virtualenv
@@ -39,10 +47,35 @@ venv () {
         sp|site-packages)
         venv_site_packages $virtualenv
         ;;
+        lsp|ls-site-packages)
+        venv_ls_site_packages $virtualenv
+        ;;
+        help|--help)
+        venv_help $virtualenv
+        ;;
         *)
-        venv_activate $action
+        test -n "$action" && venv_activate $action
+        if [[ $? != 0 ]]; then
+            venv_help
+            return 1
+        fi
         ;;
     esac
+}
+
+venv_error () {
+    echo "ERROR:" $@
+    return 1
+}
+
+venv_function_defined () {
+    if [[ -n "$ZSH_NAME" ]]; then
+        functions $1 > /dev/null 2>&1
+    elif [[ -n "$BASH" ]]; then
+        typeset -F $1 > /dev/null
+    else
+        return 1
+    fi
 }
 
 venv_set_path () {
@@ -57,9 +90,59 @@ venv_set_path () {
     return 0
 }
 
+venv_help () {
+    local virtualenv=$1
+    if [[ -z "$virtualenv" ]]; then
+        venv_help_basic
+    elif [[ -n "$virtualenv" ]] && venv_function_defined venv_help_"$virtualenv"; then
+        venv_help_"$virtualenv"
+    else
+        venv_error "No such command: $virtualenv"
+    fi
+}
+
+venv_help_basic () {
+    echo "Usage: venv COMMAND [virtualenv] [OPTIONS]"
+    echo "       venv virtualenv (activates virtualenv)"
+    echo
+    echo "Available commands:"
+    echo "   create"
+    echo "   remove"
+    echo "   activate"
+    echo "   deactivate"
+    echo "   list"
+    echo "   cd"
+    echo "   site-packages (sp)"
+    echo "   ls-site-packages (lsp)"
+    echo
+    echo "For more info type: venv help COMMAND"
+}
+
+venv_help_list () {
+    echo "Usage: venv list"
+    echo "Lists all virtual environments created by venv"
+    echo
+}
+
+venv_help_create () {
+    echo "Usage: venv create VIRTUALENV [OPTIONS]"
+    echo 'Create new virtualenv'
+    echo
+    echo "This command creates new virtualenv under \$VENV_HOME directory"
+    echo "OPTIONS are passed directly to virtualenv command."
+    echo
+}
+
 venv_create () {
-    venv_set_path $1 && echo "Virtualenv already exists!" && return 1
-    virtualenv $virtualenv
+    venv_set_path $1 && echo "ERROR: Virtualenv already exists!" && return 1
+    shift 1
+    virtualenv $@ $virtualenv
+}
+
+venv_help_remove () {
+    echo "Usage: venv remove VIRTUALENV"
+    echo "Permanently removes virtualenv"
+    echo
 }
 
 venv_remove() {
@@ -67,9 +150,12 @@ venv_remove() {
     rm -fr $virtualenv
 }
 
-##
-## Function to activate virtualenv
-##
+venv_help_activate () {
+    echo "Usage: venv activate VIRTUALENV"
+    echo "Activates virtualenv"
+    echo
+}
+
 venv_activate () {
     venv_set_path $1 || return 1
     local OLD_PS1=$PS1
@@ -82,9 +168,23 @@ venv_activate () {
     fi
 }
 
+venv_help_deactivate () {
+    echo "Usage: venv deactivate"
+    echo "Deactivates virtualenv"
+    echo
+}
+
 venv_deactivate () {
     deactivate
     unset venv_name
+}
+
+venv_help_cd () {
+    echo "Usage: venv cd [VIRTUALENV]"
+    echo "Changes current directory to VIRTUALENV."
+    echo "If VIRTUALENV options is ommited, it changes directory to currently"
+    echo "active virtualenv."
+    echo
 }
 
 venv_cd() {
@@ -100,6 +200,12 @@ venv_cd() {
     cd $virtualenv
 }
 
+venv_help_site-packages () {
+    echo "Usage: venv site-packages [VIRTUALENV]"
+    echo "Changes directory to site-packages directory of virtualenv"
+    echo
+}
+
 venv_site_packages() {
     virtualenv=$1
     if [[ -n "$virtualenv" ]]; then
@@ -112,6 +218,25 @@ venv_site_packages() {
     fi
     local major_version=$(python -V 2>&1 | sed -e 's/^[^0-9]*//' -e 's/\.[0-9]$//')
     cd $virtualenv/lib/python$major_version/site-packages
+}
+
+venv_help_ls-site-packages () {
+    echo "Usage venv ls-site-packages [VIRTUALENV]"
+    echo "Lists contents of site-packages directory"
+    echo
+}
+
+venv_ls_site_packages() {
+    virtualenv=$1
+    if [[ -n "$virtualenv" ]]; then
+        venv_set_path $1 || return 1
+    elif [[ -n "$VIRTUAL_ENV" ]]; then
+        virtualenv=$VIRTUAL_ENV
+    else
+        echo "Virtual env is not specified and none is active"
+        return 1
+    fi
+    ls $virtualenv/lib/python*/site-packages
 }
 
 venvinit "$@"
