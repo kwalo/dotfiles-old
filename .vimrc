@@ -62,7 +62,7 @@ syntax on
 set number
 
 " laeve some space when moving vertical
-set scrolloff=2
+set scrolloff=3
 
 " always show statusline
 set laststatus=2

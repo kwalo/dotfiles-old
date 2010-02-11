@@ -80,4 +80,5 @@ alias j512='java -Xmx512m -Xms512m'
 # rvm installer added line:
 if [ -s ~/.rvm/scripts/rvm ] ; then source ~/.rvm/scripts/rvm ; fi
 
+venv_preserve_ps1=1
 source /home/kwalo/.profile
