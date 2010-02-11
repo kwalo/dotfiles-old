@@ -9,8 +9,11 @@ venvinit () {
     if [[ -z "$VENV_HOME" ]]; then
         VENV_HOME=~/.venv
     fi
+    if [[ ! -d "$VENV_HOME" ]]; then
+        mkdir -p "$VENV_HOME"
+    fi
     if [[ -z "venv_preserve_ps1" ]]; then
-        venv_preserve_ps1=1
+        venv_preserve_ps1=0
     fi
     venv_loaded=1
 }
