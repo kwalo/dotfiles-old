@@ -55,6 +55,9 @@ autoload -U venvinit; venvinit
 
 # Environment variables
 export EDITOR="vim" PAGER="less" 
+if [[ -d ~/.local/bin ]]; then
+    export PATH=~/.local/bin:$PATH
+fi
 WORDCHARS='.'
 
 # Some aliases

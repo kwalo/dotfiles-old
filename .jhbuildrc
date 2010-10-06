@@ -1,0 +1,42 @@
+## Jhbuild configuration
+moduleset = 'gnome-suites-3.0'
+checkoutroot = os.path.join(os.environ['HOME'], 'src/gnome')
+prefix = os.path.join(os.environ['HOME'], '.local')
+build_policy = 'updated'
+
+# Uncomment if modulesets dir is locally modified
+use_local_modulesets = True
+
+## Compilation configuration
+autogenargs = ' --disable-maintainer-mode'
+makeargs = '-j4'
+os.environ['CFLAGS'] = '-g -O2'
+os.environ['LD_LIBRARY_PATH'] = '/usr/lib/firefox-3.6.10:' + os.environ.get('LD_LIBRARY_PATH', '')
+
+## Module customizations
+skip = [ ]
+# skip from bootstrap
+skip.extend ([ 'python', 'guile' ])
+# skip some big external dependencies that can be annoying and that are
+# installed system-wide anyway
+skip.extend ([ 'mozilla', 'firefox', 'dbus', 'hal', 'avahi',
+               'NetworkManager', 'PolicyKit', 'PolicyKit-gnome',
+               'libgdiplus', 'mono', 'monodoc', 'nss', 'nspr',
+               'sqlite3', 'pulseaudio', 'pysqlite2', 'mono-addins',
+               'WebKit', 'polkit', 'DeviceKit', 'DeviceKit-disks',
+               'DeviceKit-power', 'libxml2', 'libxslt', 'libgpg-error',
+               'libgcrypt', 'expat', 'libtasn1', 'gnutls', 'libIDL',
+               'libvolume_id', 'libdaemon', 'udisks', 'UPower', 'upower',
+               'libproxy', 'libunique', 'libnotify', 'libsoup',
+])
+# skip some gnome stuff that I can't test
+skip.extend ([ 'evolution-exchange', 'evolution-mapi' ])
+
+## Branches
+## When some package fails to compile, create local-fixes branch and do the
+## dirty work there
+#branches['clutter'] = (None, 'local-fixes')
+
+## Special autogenargs (remember about spaces)
+module_autogenargs['clutter'] = autogenargs + ' --disable-conformance --disable-glibtest  --enable-gcov'
+

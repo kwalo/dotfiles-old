@@ -9,12 +9,12 @@ precmd () {
     # Store name of current git branch in psvar array so we can display it on
     # prompt
     local GITBRANCH=$(/usr/bin/git branch --no-color 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
-    # $rvm_package_file was not unset when changed to default interpreter
-    local RUBY_INTERPRETER=$(basename "$MY_RUBY_HOME")
-    # setup virtualenv name
-    local VENV_NAME
+    # Wether we are using jhbuild
+    if [[ "$UNDER_JHBUILD" = true ]]; then
+        local JHBUILD="jhbuild"
+    fi
 
-    psvar=("$GITBRANCH" "$RUBY_INTERPRETER" "$venv_name")
+    psvar=("$GITBRANCH" "$JHBUILD" "$venv_name")
     # More useful title for screen
     if [[ $TERM == 'screen' ]]; then
         print -nP "\ekzsh $USER: ${PWD/$HOME/~}\e\\"
